@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use Illuminate\Http\Request;
 
-class PropertyController extends Controller
+class DashboardController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,11 +25,11 @@ class PropertyController extends Controller
 
         $properties = $query->latest()->paginate(9);
 
-        return view('properties.index', compact('properties'));
+        return view('dashboard', compact('properties'));
     }
 
     public function show(Property $property)
     {
-        return view('properties.show', compact('property'));
+        return view('dashboard.properties.show', compact('property'));
     }
 }
