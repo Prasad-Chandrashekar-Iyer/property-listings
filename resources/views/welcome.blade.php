@@ -82,7 +82,7 @@
 
             <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1600596542815-60c3750436d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="House 1">
+                    <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="House 1">
                     <div class="p-6">
                         <div class="flex items-center">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">For Sale</span>
