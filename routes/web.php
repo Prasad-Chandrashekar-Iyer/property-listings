@@ -7,7 +7,7 @@ use App\Http\Controllers\PropertyController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('redirect.admin');
 
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
