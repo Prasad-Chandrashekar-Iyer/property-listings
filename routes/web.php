@@ -2,10 +2,20 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminPropertyController;
+use App\Http\Controllers\PropertyController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('properties', AdminPropertyController::class);
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
