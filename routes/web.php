@@ -15,7 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'can:viewAdminPanel'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('properties', AdminPropertyController::class);
 });
 
