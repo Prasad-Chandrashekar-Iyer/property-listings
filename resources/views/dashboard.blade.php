@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-user-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-900 leading-tight">
             {{ __('Properties Dashboard') }}
@@ -130,4 +130,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-user-layout>
