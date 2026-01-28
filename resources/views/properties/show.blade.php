@@ -19,6 +19,9 @@
                         {{ $property->status }}
                     </span>
                 </div>
+                <div class="text-sm text-gray-500 mb-4">
+                    Listed on: {{ $property->created_at->format('M d, Y') }}
+                </div>
                 <div class="mb-4">
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $property->type }}</span>
                 </div>

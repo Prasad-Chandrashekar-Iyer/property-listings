@@ -47,6 +47,7 @@
                                     <h3 class="text-lg font-bold">{{ $property->title }}</h3>
                                     <p class="text-gray-700">${{ number_format($property->price, 2) }}</p>
                                     <p class="text-gray-600">{{ $property->location }}</p>
+                                    <p class="text-sm text-gray-500 mt-2">Listed: {{ $property->created_at->format('M d, Y') }}</p>
                                 </div>
                             </a>
                         </div>
