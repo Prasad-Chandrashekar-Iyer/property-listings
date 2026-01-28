@@ -1,7 +1,11 @@
-<x-admin-layout>
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Manage Properties</h1>
+@extends('layouts.admin')
 
+@section('header')
+    <h1 class="text-2xl font-bold text-white">Manage Properties</h1>
+@endsection
+
+@section('content')
+    <div class="container mx-auto p-4">
         <div class="mb-4">
             <a href="{{ route('admin.properties.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Create New Property
@@ -14,9 +18,9 @@
             </div>
         @endif
 
-        <div class="bg-white shadow-md rounded-lg overflow-x-auto">
-            <table class="min-w-full bg-white">
-                <thead class="bg-gray-800 text-white">
+        <div class="bg-gray-800 shadow-md rounded-lg overflow-x-auto">
+            <table class="min-w-full">
+                <thead class="bg-gray-700 text-gray-300">
                     <tr>
                         <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Title</th>
                         <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Price</th>
@@ -25,23 +29,23 @@
                         <th class="py-3 px-4 uppercase font-semibold text-sm">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-700">
+                <tbody class="text-gray-400">
                     @forelse ($properties as $property)
-                        <tr>
+                        <tr class="border-b border-gray-700">
                             <td class="w-1/4 py-3 px-4">{{ $property->title }}</td>
                             <td class="w-1/4 py-3 px-4">${{ number_format($property->price, 2) }}</td>
                             <td class="w-1/4 py-3 px-4">{{ $property->type }}</td>
                             <td class="w-1/4 py-3 px-4">
-                                <span class="{{ $property->status == 'Available' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' }} py-1 px-3 rounded-full text-xs">
+                                <span class="{{ $property->status == 'Available' ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }} py-1 px-3 rounded-full text-xs">
                                     {{ $property->status }}
                                 </span>
                             </td>
                             <td class="py-3 px-4">
-                                <a href="{{ route('admin.properties.edit', $property) }}" class="text-blue-500 hover:text-blue-800">Edit</a>
+                                <a href="{{ route('admin.properties.edit', $property) }}" class="text-blue-400 hover:text-blue-600">Edit</a>
                                 <form action="{{ route('admin.properties.destroy', $property) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:text-red-800 ml-2" onclick="return confirm('Are you sure you want to delete this property?')">Delete</button>
+                                    <button type="submit" class="text-red-400 hover:text-red-600 ml-2" onclick="return confirm('Are you sure you want to delete this property?')">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -57,4 +61,4 @@
             {{ $properties->links() }}
         </div>
     </div>
-</x-admin-layout>
+@endsection
