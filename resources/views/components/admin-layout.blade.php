@@ -11,6 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     </head>
     <body class="font-sans antialiased">
@@ -37,8 +38,8 @@
 
                         <!-- Settings Dropdown -->
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <div class="relative">
-                                <button class="flex items-center text-sm font-medium text-gray-400 hover:text-white transition duration-150 ease-in-out">
+                            <div class="relative" x-data="{ open: false }">
+                                <button @click="open = ! open" class="flex items-center text-sm font-medium text-gray-400 hover:text-white transition duration-150 ease-in-out">
                                     <div>{{ Auth::user()->name }}</div>
 
                                     <div class="ml-1">
@@ -47,7 +48,7 @@
                                         </svg>
                                     </div>
                                 </button>
-                                <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 hidden">
+                                <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
                                     <div class="py-1">
                                         <form method="POST" action="{{ route('admin.logout') }}">
                                             @csrf
