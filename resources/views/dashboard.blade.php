@@ -18,6 +18,17 @@
                         
                         <form action="{{ route('dashboard') }}" method="GET">
                             <div class="mb-5">
+                                <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                                <div class="relative rounded-md shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    </div>
+                                    <input type="text" name="search" id="search" value="{{ request('search') }}"
+                                        class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Name or location...">
+                                </div>
+                            </div>
+
+                            <div class="mb-5">
                                 <label for="min_price" class="block text-sm font-medium text-gray-700 mb-1">Min Price</label>
                                 <div class="relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
