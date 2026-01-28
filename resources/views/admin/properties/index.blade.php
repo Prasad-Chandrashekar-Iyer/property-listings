@@ -55,7 +55,7 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse ($properties as $property)
-                        <tr class="hover:bg-gray-50 transition-colors">
+                        <tr class="hover:bg-gray-50 transition-colors {{ $property->trashed() ? 'bg-red-50' : '' }}">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
@@ -92,15 +92,30 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end gap-3">
-                                    <a href="{{ route('admin.properties.edit', $property) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">Edit</a>
-                                    
-                                    <form action="{{ route('admin.properties.destroy', $property) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this property?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-500 hover:text-red-700 font-medium bg-transparent border-0 cursor-pointer">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    @if($property->trashed())
+                                        <form action="{{ route('admin.properties.restore', $property) }}" method="POST" class="inline-block">
+                                            @csrf
+                                            <button type="submit" class="text-green-500 hover:text-green-700 font-medium bg-transparent border-0 cursor-pointer">
+                                                Restore
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('admin.properties.forceDelete', $property) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to permanently delete this property?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500 hover:text-red-700 font-medium bg-transparent border-0 cursor-pointer">
+                                                Permanently Delete
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('admin.properties.edit', $property) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">Edit</a>
+                                        <form action="{{ route('admin.properties.destroy', $property) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this property?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500 hover:text-red-700 font-medium bg-transparent border-0 cursor-pointer">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

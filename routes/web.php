@@ -17,6 +17,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'can:viewAdminPanel'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('properties', AdminPropertyController::class);
+    Route::post('properties/{property}/restore', [AdminPropertyController::class, 'restore'])->name('properties.restore')->withTrashed();
+    Route::delete('properties/{property}/force-delete', [AdminPropertyController::class, 'forceDelete'])->name('properties.forceDelete')->withTrashed();
 });
 
 Route::middleware('auth')->group(function () {

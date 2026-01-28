@@ -19,7 +19,7 @@ class AdminPropertyController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Property::class);
-        $properties = Property::latest()->paginate(10);
+        $properties = Property::withTrashed()->latest()->paginate(10);
         return view('admin.properties.index', compact('properties'));
     }
 
@@ -97,5 +97,24 @@ class AdminPropertyController extends Controller
         $this->authorize('delete', $property);
         $property->delete();
         return redirect()->route('admin.properties.index')->with('success', 'Property deleted successfully.');
+    }
+
+    public function restore(Property $property)
+    {
+        $this->authorize('restore', $property);
+        $property->restore();
+        return redirect()->route('admin.properties.index')->with('success', 'Property restored successfully.');
+    }
+
+    public function forceDelete(Property $property)
+    {
+        $this->authorize('forceDelete', $property);
+
+        if ($property->image) {
+            Storage::disk('public')->delete($property->image);
+        }
+        
+        $property->forceDelete();
+        return redirect()->route('admin.properties.index')->with('success', 'Property permanently deleted successfully.');
     }
 }
