@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
 use App\Models\Property;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class AdminPropertyController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $this->authorize('viewAny', Property::class);
         $properties = Property::latest()->paginate(10);
         return view('admin.properties.index', compact('properties'));
     }
@@ -24,6 +28,7 @@ class AdminPropertyController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Property::class);
         return view('admin.properties.create');
     }
 
@@ -49,6 +54,7 @@ class AdminPropertyController extends Controller
      */
     public function show(Property $property)
     {
+        $this->authorize('view', $property);
         return view('admin.properties.show', compact('property'));
     }
 
@@ -57,6 +63,7 @@ class AdminPropertyController extends Controller
      */
     public function edit(Property $property)
     {
+        $this->authorize('update', $property);
         return view('admin.properties.edit', compact('property'));
     }
 
@@ -65,6 +72,7 @@ class AdminPropertyController extends Controller
      */
     public function update(UpdatePropertyRequest $request, Property $property)
     {
+        $this->authorize('update', $property);
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -86,6 +94,7 @@ class AdminPropertyController extends Controller
      */
     public function destroy(Property $property)
     {
+        $this->authorize('delete', $property);
         $property->delete();
         return redirect()->route('admin.properties.index')->with('success', 'Property deleted successfully.');
     }

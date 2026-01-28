@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('admin.auth.login');
     }
 
     /**
@@ -26,19 +26,19 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        if (Auth::user()->role === 'admin') {
+        if (Auth::user()->role !== 'admin') {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
             return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.',
+                'email' => 'These credentials do not match our records for an admin user.',
             ]);
         }
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('admin.properties.index'));
     }
 
     /**
@@ -52,6 +52,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/admin/login');
     }
 }

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $property->title }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+<x-admin-layout>
     <div class="container mx-auto p-4">
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <img src="{{ asset('storage/' . $property->image) }}" alt="{{ $property->title }}" class="w-full h-96 object-cover">
@@ -29,5 +21,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</x-admin-layout>
