@@ -16,13 +16,19 @@ class PropertyFactory extends Factory
      */
     public function definition(): array
     {
+        $propertyTypes = ['Apartment', 'House', 'Commercial'];
+        $statuses = ['Available', 'Sold'];
+        $adj = ['Spacious', 'Modern', 'Cozy', 'Luxury', 'Charming', 'Bright'];
+        $noun = ['Loft', 'Villa', 'Condo', 'Studio', 'Penthouse', 'Office Space'];
+        $location_suffix = ['Downtown', 'Suburbs', 'by the Lake', 'in the Hills', 'City Center'];
+
         return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'type' => $this->faker->randomElement(['Apartment', 'House', 'Commercial']),
-            'price' => $this->faker->randomFloat(2, 100000, 1000000),
-            'location' => $this->faker->address,
-            'status' => $this->faker->randomElement(['Available', 'Sold']),
+            'title' => $this->faker->randomElement($adj) . ' ' . $this->faker->randomElement($noun) . ' ' . $this->faker->randomElement($location_suffix),
+            'description' => $this->faker->realText(200),
+            'type' => $this->faker->randomElement($propertyTypes),
+            'price' => $this->faker->numberBetween(150000, 2000000),
+            'location' => $this->faker->city() . ', ' . $this->faker->stateAbbr(),
+            'status' => $this->faker->randomElement($statuses),
             'image' => null,
         ];
     }
