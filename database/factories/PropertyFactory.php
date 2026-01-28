@@ -23,7 +23,7 @@ class PropertyFactory extends Factory
             'price' => $this->faker->randomFloat(2, 100000, 1000000),
             'location' => $this->faker->address,
             'status' => $this->faker->randomElement(['Available', 'Sold']),
-            'image' => $this->faker->imageUrl(),
+            'image' => null,
         ];
     }
 }
