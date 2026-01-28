@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Properties</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Manage Properties</h1>
+
+        <div class="mb-4">
+            <a href="{{ route('admin.properties.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Create New Property
+            </a>
+        </div>
+
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Title</th>
+                        <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Price</th>
+                        <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Type</th>
+                        <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Status</th>
+                        <th class="py-3 px-4 uppercase font-semibold text-sm">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    @forelse ($properties as $property)
+                        <tr>
+                            <td class="w-1/4 py-3 px-4">{{ $property->title }}</td>
+                            <td class="w-1/4 py-3 px-4">${{ number_format($property->price, 2) }}</td>
+                            <td class="w-1/4 py-3 px-4">{{ $property->type }}</td>
+                            <td class="w-1/4 py-3 px-4">
+                                <span class="{{ $property->status == 'Available' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' }} py-1 px-3 rounded-full text-xs">
+                                    {{ $property->status }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <a href="{{ route('admin.properties.edit', $property) }}" class="text-blue-500 hover:text-blue-800">Edit</a>
+                                <form action="{{ route('admin.properties.destroy', $property) }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-800 ml-2" onclick="return confirm('Are you sure you want to delete this property?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-4">No properties found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4">
+            {{ $properties->links() }}
+        </div>
+    </div>
+</body>
+</html>
